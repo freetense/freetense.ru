@@ -1,0 +1,263 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<title>freetense.ru</title>
+<link href="css/styles.css" rel="stylesheet" media="all"/>
+<link rel="stylesheet" type="text/css" href="../../css/osnov.css">
+
+<script type="text/javascript" src="../../js/jquery.js"></script>
+
+
+<script>
+
+
+$(document).ready(function() {
+var ter;
+ter = $(window).height();
+ter = ter - 579;
+$(".osnovanie").height(ter);
+});
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var lost = location.href;
+  var socket = io.connect();
+      socket.on('config_add1', function (data) {
+    
+  });
+    socket.emit('count_sort', { count: lost }); 
+</script>
+
+</head>
+<body>
+<div class="center12">
+ <div class="head1">
+    <div class="logo_left">
+    <div class="up">
+        <div class="registr">
+         <a href="/registration" class="l_b">Регистрация</a> | <a href="/login">Войти</a>
+        </div>
+
+<a href="/"  class="l_b">
+        <div class="butt_link">
+        Главная
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+
+<a href="/nodejs"   class="l_b">
+        <div class="butt_link1">
+        Node.JS
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+<a href="/php"   class="l_b">
+        <div class="butt_link2">
+        PHP
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+<a href="/javascript"   class="l_b">
+        <div class="butt_link1">
+        JavaScript
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+<a href="/info"   class="l_b">
+        <div class="butt_link2">
+        Info
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+<a href="/avr"   class="l_b">
+        <div class="butt_link2">
+         AVR
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+
+<a href="/java"   class="l_b">
+        <div class="butt_link2">
+         Java
+        </div>
+</a>
+        <div class="line_link">
+        </div>
+
+
+    </div>
+
+<div class="left1">
+<div class="lefts">
+    <div class="logo">
+    <img src="../../images/logo.png" class="imgl">
+    </div>
+    <div class="search">
+
+     <input type="text" placeholder="Поиск" class="search_inp">
+     <input type="button" value="" class="butt_search">
+
+    </div>
+</div>
+
+        <a href="">
+                <div class="baner2" id="baner">
+                <img src="../../images/baner/1.jpg">
+        </div>
+        </a>
+        <a href="">
+                <div class="baner2"  id="baner">
+                <img src="../../images/baner/2.jpg">
+        </div>
+        <a href="">
+                <div class="baner2"  id="baner">
+                <img src="../../images/baner/3.jpg">
+        </div>
+        </a>
+        <a href="">
+                <div class="baner2"  id="baner">
+                <img src="../../images/baner/4.jpg">
+        </div>
+        </a>
+        <a href="">
+                <div class="baner2"  id="baner">
+                <img src="../../images/baner/5.jpg">
+        </div>
+        </a>
+        <a href="">
+                <div class="baner2"  id="baner1">
+                <img src="../../images/baner/6.jpg">
+
+        </div>
+        </a>
+        <a href="">
+                <div class="baner2"  id="baner">
+                <img src="../../images/baner/7.jpg">
+        </div>
+        </a>
+
+
+        </div>
+
+      
+    </div>
+
+ </div>
+
+</div>
+
+<div class="rubriky">
+<div class="rubriky1">
+Рубрики
+</div>
+ 
+ 
+
+</div>
+<div class="center1">
+ 
+  <div class="osnovanie">
+        <div class="info_statya">
+
+
+<br><br>
+<div class="paginator" id="paginator1"></div>
+
+        </div>
+
+
+        <div class="info_statya1">
+        
+<%- cat %>
+        </div>
+  </div>
+  
+
+
+    <div class="footer">
+    
+    <div class="rub_div" >
+        <div class="up_div">
+        </div>
+        
+        <div class="dn_div">
+
+        <div class="onet">
+                    <div class="up_onet">
+                    <a href="/avr">Atmel AVR</a>
+                    </div>
+                     <div class="dn_onet">
+                     <a href=/avr<%- id1 %> ><%-  title1 %></a>
+
+                    </div>
+          </div>
+          <div class="onet">
+                 <div class="up_onet1">
+                    <a href="/php">PHP:Hypertext Preprocessor</a>
+                    </div>
+                     <div class="dn_onet">
+                     <a href=/php<%- id2 %> ><%-  title2 %></a>
+                    </div>
+          </div>
+          <div class="onet">
+                    <div class="up_onet">
+                    <a href="/javascript">JavaScript</a>
+                    </div>
+                     <div class="dn_onet">
+                    <a href=/javascript<%- id3 %> ><%-  title3 %></a>
+                     
+                    </div>
+          </div>
+
+
+
+        </div>
+    </div>
+    
+    <div class="copy_foot">
+        <div class="img_ded">
+        <img src="../../images/foot_men.png">
+        <br>
+        www.freetense.ru <script type="text/javascript">var now = new Date();document.write(now.getFullYear());</script> &copy;
+        <br>
+        <div class="line"></div>
+        <br>
+        <div class="text_div">
+        При копировании материала ссылка на первоисточник обязательна.
+        </div>
+        ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    
+$('.baner2').on('mouseover', function(){
+    $('.baner2').animate({
+     width: 60,
+     opacity: 0.3
+  },0);
+
+  $(this).animate({
+     width: 370,
+     opacity: 1
+  },0);
+   
+});
+
+var d;
+
+  $('.butt_search').click(function() {
+    d =  $('.search_inp').val();
+     window.location.href = "/search="+d; 
+ });
+</script>
+</body>
+</html>
