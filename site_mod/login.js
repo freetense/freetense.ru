@@ -1,6 +1,6 @@
    var mysql = require('mysql');
     var conf = require('./info');
-
+var md5 = require('md5');
 
  var sock = require('./sock');
 
@@ -8,15 +8,32 @@
 
 
 
-
-//обрпботка главной страницы списки стиатей
 exports.index_login1 = function(req, res, next) {
- res.cookie("ids" , req.protocol + "://"+ req.get('Host') + req.url);
+ //res.cookie("ids" , req.protocol + "://"+ req.get('Host') + req.url);
   //res.clearCookie('ids');
+  var context = {};
   var x = req.cookies.ids;
-  console.log(x);
+  //console.log(x);
+var user_id = req.body.username;
+var token = req.body.password;
+console.log(user_id);
+context.in_log = 22;
+context.in_pas = 22;
+  if(user_id == undefined){
+    context.in_log = 24;
+  }
 
-   var context = {};
+  if(token == undefined){
+    context.in_pas = 24;
+  }
+
+   context.user_id = user_id;
+context.password = token;
+
+
+
+
+  // console.log(user_id + ' ' + token);
    var db = mysql.createConnection({
   host: conf.info.host,
   user: conf.info.user,
@@ -27,9 +44,38 @@ exports.index_login1 = function(req, res, next) {
 db.connect();
 
 
+
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key33 in resultq) {
 
+     if((resultq[key33].pass == req.cookies.pass)&&(req.cookies.login == resultq[key33].login)){
+       res.redirect(req.protocol + '://' + req.get('host'));
+     }
+}
 
+ });
+}
+db.query("select * from `user` where `login`='"+user_id+"';", function(error, result, fields){
+for (var key in result) {
+
+        context.in_log = 24;
+     if(result[key].pass == md5(token)){
+
+        context.in_pas = 24;
+          res.cookie("login" , result[key].login);
+          res.cookie("pass" , result[key].pass);
+          if((req.cookies.page != undefined)&&(req.cookies.page != "")){
+            res.redirect(req.cookies.page);
+          }else{
+            res.redirect(req.protocol + '://' + req.get('host'));
+          }
+          
+     }
+}
+
+ });
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result1, fields){
   
 

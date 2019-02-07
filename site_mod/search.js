@@ -6,6 +6,7 @@
  var sock = require('./sock');
 
 exports.ind_params1 = function (req, res, next) {
+  res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
      var context = {};
       var db = mysql.createConnection({
   host: conf.info.host,
@@ -17,7 +18,22 @@ exports.ind_params1 = function (req, res, next) {
 db.connect();
 
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
 
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result, fields){

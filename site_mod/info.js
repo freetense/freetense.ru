@@ -4,7 +4,7 @@ var info = {
 	host: 'localhost',
 	  user: 'root',
 	  password: '',
-	  database: 'freetense'
+	  database: 'fr'
 };
 
 

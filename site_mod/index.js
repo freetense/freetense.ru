@@ -9,10 +9,10 @@
 
 
 
-
-
 //обрпботка главной страницы списки стиатей
 exports.index_info = function(req, res, next) {
+  //res.cookie("page" , window.location.href);
+res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
  // res.cookie("ids" , 'cookie_value');
   //res.clearCookie('ids');
   //var x = req.cookies.ids;
@@ -26,8 +26,24 @@ exports.index_info = function(req, res, next) {
   database: conf.info.database
 }); 
 db.connect();
-db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
 
+db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
+
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result1, fields){
   if(!result1[0]){
 context.title1 = "";
@@ -148,6 +164,7 @@ db.destroy();
 
 // другие списки статей (листалка)
 exports.ind_param1 = function (req, res, next) {
+  res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
    var context = {};
       var db = mysql.createConnection({
   host: conf.info.host,
@@ -160,7 +177,22 @@ db.connect();
 
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
 
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
 
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result, fields){
   if(!result[0]){

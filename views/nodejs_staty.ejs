@@ -41,7 +41,11 @@ var lost = location.href;
     <div class="logo_left">
     <div class="up">
         <div class="registr">
-            <a href="/registration" class="l_b">Регистрация</a> | <a href="/login">Войти</a>
+                    <% if(in_pas == 24){ %>
+            <a href="/registration" class="l_b">Личный кабинет</a> | <a href="/exit">Выйти</a>
+       <% }else{ %>
+         <a href="/registration" class="l_b">Регистрация</a> | <a href="/login">Войти</a>
+         <% } %>
         </div>
 
 <a href="/"  class="l_b">

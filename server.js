@@ -1,6 +1,13 @@
 var express = require('express');
 var cookieParser = require('cookie-parser');  
-var app = express();  
+var bodyParser = require("body-parser");
+ 
+var app = express();
+ 
+// создаем парсер для данных application/x-www-form-urlencoded
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+ 
+
 app.use(cookieParser());
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
@@ -34,7 +41,7 @@ app.param('id30', search1.ind_params1);
 app.get('/search=:id30', function (req, res) 
 { });
 
-
+ app.get('/search=', search1.ind_params1);
 
 //рубрики
  var index_r = require('./site_mod/rubriky'); 
@@ -49,7 +56,7 @@ app.get('/rubriky:id22/:id23', index_r.ind_link12);
  var index_php = require('./site_mod/php'); 
  app.get('/php', index_php.index_info);
 
-app.param('id1', index_php.id_param1); app.get('/count_:id1', index_php.id_link1);
+app.param('id1', index_php.id_param1); app.get('/phpcount_:id1', index_php.id_link1);
 
 app.param('id', index_php.id_param); app.get('/php:id', index_php.id_link);
 
@@ -99,8 +106,10 @@ app.param('id11', index_java.java_param); app.get('/java:id11', index_java.java_
 
 //login
  var index_login = require('./site_mod/login');
-app.get('/login', index_login.index_login1);
- app.param('idlogin', index_login.id_login); app.get('/login:idlogin', index_login.login_link1);
+app.all('/login', urlencodedParser, index_login.index_login1);
+
+ var index_registration = require('./site_mod/registration');
+app.all('/registration', urlencodedParser, index_registration.index_login12);
 
 
 io.on('connection', sock.socke);

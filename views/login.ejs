@@ -3,10 +3,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>freetense.ru</title>
+<script type="text/javascript" src="../../js/jquery.js"></script>
 <link href="css/styles.css" rel="stylesheet" media="all"/>
 <link rel="stylesheet" type="text/css" href="../../css/osnov.css">
-
-<script type="text/javascript" src="../../js/jquery.js"></script>
 
 
 <script>
@@ -165,6 +164,53 @@ var lost = location.href;
  
   <div class="osnovanie">
         <div class="info_statya">
+        <div class="it_title1"> 
+<a href="/login">Форма авторизации пользователя</a>
+        </div>
+    <div id="container">
+<h1 style="color: black;font-size: 32;"><center>Форма авторизации</center></h1>
+<br><br>
+      <form action="" method="post">
+        <div class="login">АВТОРИЗАЦИЯ</div>
+        <div class="username-text">Логин:</div>
+        <div class="password-text">Пароль:</div>
+        <div class="username-field">
+          <input type="text" name="username" class="inpclass"  placeholder="Логин"  value="<%- user_id %>" />
+        <div class="mes_err3">
+        <% if ((user_id == "")) { %>
+        
+          Логин не заполнен
+        
+        <% }else{ %>
+            <% if ((in_log == 22)) { %>
+               Логин не верен
+            <% } %>
+          <% } %>
+        </div>
+        </div>
+
+
+        <div class="password-field">
+          <input type="password" name="password" class="inpclass"  placeholder="Пароль" value="" />
+          <div class="mes_err3">
+          <% if ((password == "")) { %>
+    
+          Пароль не заполнен
+        
+          <% }else{ %>
+             <% if ((in_pas == 22)) { %>
+             Пароль не верен
+             <% } %>
+          <% } %>
+          </div>
+        </div>
+        <input type="checkbox" name="remember-me" id="remember-me" /><label for="remember-me">Запомнить меня</label>
+        <div class="forgot-usr-pwd"><a href="#">Не помню пароль.</a></div>
+        <input type="submit" class="su1" name="submit" value="GO" />
+      </form>
+    </div>
+
+
 
 
 <br><br>

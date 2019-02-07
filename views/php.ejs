@@ -39,7 +39,7 @@ var lost = location.href;
                     pagesTotal: <%- col %>,
                     pagesSpan: 10,
                     pageCurrent: <%- id %>,
-                    baseUrl: 'count_%number%',
+                    baseUrl: 'phpcount_%number%',
                                         lang: {
                         next  : "Следующая",
                         last  : "Последняя",
@@ -60,7 +60,11 @@ var lost = location.href;
     <div class="logo_left">
     <div class="up">
         <div class="registr">
+                 <% if(in_pas == 24){ %>
+            <a href="/registration" class="l_b">Личный кабинет</a> | <a href="/exit">Выйти</a>
+       <% }else{ %>
          <a href="/registration" class="l_b">Регистрация</a> | <a href="/login">Войти</a>
+         <% } %>
         </div>
 
 <a href="/"  class="l_b">

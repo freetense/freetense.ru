@@ -8,7 +8,7 @@ exports.index_login = function (req, res,contexts) {
 }
 
 exports.index_count = function (req, res,contexts,ia) {
-
+res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
    var context = {};
 
    var db = mysql.createConnection({
@@ -22,7 +22,22 @@ db.connect();
 
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
 
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
 
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result1, fields){
   if(!result1[0]){
@@ -183,7 +198,7 @@ db.destroy();
 
 exports.index_ver = function (req, res,contexts,i) {
 
-
+res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
 
   var context = {};
       var db = mysql.createConnection({
@@ -197,6 +212,22 @@ db.connect();
 
 
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
+
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result, fields){
@@ -352,6 +383,7 @@ for (var key in result) {
 
 
 exports.index_for = function (req, res,contexts) {
+  res.cookie("page" , req.protocol + '://' + req.get('host') + req.originalUrl);
          var context = {};
           var db = mysql.createConnection({
   host: conf.info.host,
@@ -362,6 +394,22 @@ exports.index_for = function (req, res,contexts) {
 
 db.connect();
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
+  context.in_pas = 22;
+  if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
+db.query("select * from `user` where `login`='"+req.cookies.login+"';", function(error, resultq, fields){
+for (var key in resultq) {
+
+        context.in_log = 24;
+     if((resultq[key].pass == req.cookies.pass)&&(req.cookies.login == resultq[key].login)){
+
+        context.in_pas = 24;
+          res.cookie("login" , resultq[key].login);
+          res.cookie("pass" , resultq[key].pass);
+     }
+}
+
+ });
+}
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result1, fields){
   if(!result1[0]){
@@ -577,11 +625,11 @@ while ( pos != -1 ) {
 var s = 0;
 pos4[m] = new Array();
 
-  var pos2s = retur.indexOf("|",pos+6);
+  var pos2s = retur.indexOf("||",pos+6);
   var pos1 = retur.substring(pos+6,pos2s);
 
   var pos3s = retur.indexOf(":/cods:",pos2s);
-  var pos3 = retur.substring(pos2s+1,pos3s);
+  var pos3 = retur.substring(pos2s+2,pos3s);
   pos4[m][s] = retur.substring(pos,pos3s+7);
   pos4[m][++s] = pos1;
   pos4[m][++s] = pos3;
