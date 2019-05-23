@@ -684,6 +684,7 @@ padding: 5px;
  	background-image:url(../images/button_active.jpg);
 }
 
-.l_b :link {   color: #ffffff;}
-.l_b :visited {  color: #ffffff;}
-.l_b :hover {  color: #ffffff;}
+.l_b:link {   color: #ffffff;}
+.l_b:visited {  color: #ffffff;}
+.l_b:hover {  color: #ffffff;}
+

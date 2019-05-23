@@ -514,3 +514,6 @@ input[type="checkbox"]:not(:checked):hover + label, input[type="checkbox"]:not(:
 	position: absolute;
 	margin-top: 15px;
 }
+#l_b1:link {   color: #9ACEE6;}
+#l_b1:visited {  color: #9ACEE6;}
+#l_b1:hover {  color: black;}

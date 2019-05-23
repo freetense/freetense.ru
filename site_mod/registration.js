@@ -1,6 +1,6 @@
    var mysql = require('mysql');
     var conf = require('./info');
-
+var md5 = require('md5');
 
  var sock = require('./sock');
 
@@ -22,7 +22,7 @@ var passsow = req.body.passsow;
 var pass = req.body.pass;
 var into = req.body.into;
 
-
+var s = 25; 
 
   console.log(name + ' ' + fname + ' ' + emails + ' ' + phone + ' ' + user_id + ' ' + passsow + ' ' + pass);
 
@@ -39,6 +39,7 @@ var r = /^\w+@\w+\.\w{2,4}$/i;
 if ((!r.test(emails))&&(emails != undefined)) {
 e = 24;
 }else{
+
 e = 22;
 }
 context.emails = emails;
@@ -51,6 +52,7 @@ if ((!re.test(phone))&&(phone != undefined)) {
 e = 24;
 }else{
 e = 22;
+   s = 2;
 }
 context.phone = phone;
 context.phone1 = e;
@@ -79,7 +81,6 @@ context.pass1 = e;
 
 db.connect();
 
- 
 
 db.on('error', function(err) { if (err.code === 'PROTOCOL_CONNECTION_LOST')    db.connect();  });
   if((req.cookies.login != undefined)&&(req.cookies.pass != undefined)){
@@ -130,6 +131,7 @@ if(emails == undefined){
 context.emails2 = 21;
 }
 });
+
 
 db.query("select * from `articles` where `category`='avr' ORDER BY `id` DESC LIMIT 1;", function(error, result1, fields){
   
@@ -186,14 +188,63 @@ for (var key in result) {
 
                   context.cat += '<div class="link_rub"><a href="/rubriky'+icat+'/1"><b>'+icat1+'</b></a></div>';
 }
+
+
+
+if ((context.aname == "")||(context.fname == "")) { 
+          s = 2;
+} 
+  if((context.emails1 == 24)||(context.emails == "")){              
+          s = 2;
+  }else{
+    if(context.emails2 != 21){
+      //console.log(1);
+          s = 2;
+    }
+
+  }
+if (context.phone == "") {
+          s = 2;
+}else{
+    if(context.phone2 != 21){
+     // console.log(2);
+          s = 2;
+    }
+}
+if (context.user_id == "") {
+          s = 2;
+}else{
+    if(context.user2 != 21){
+      //console.log(3);
+             s = 2;
+    }
+}
+if ((context.pass == "")&&(context.passsow == "")) { 
+        s = 2;
+}
+if((context.pass1 == 24)){ 
+         s = 2;
+}
+ console.log(s);
+//var passr = randomString(20);
+          if((s != 2)){
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+           // alert();
+           if(context.pass != undefined){
+            var pass4 = md5(context.pass);
+           //console.log("fgdg");
+
+
+  for (var i = 0; i < 14; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+}
+            db.query("INSERT INTO user (aname, fname, phone, email, login, pass, podp, info_pass, id_user, auth, edit_pass) VALUES ('"+context.aname+"','"+context.fname+"','"+context.phone+"','"+context.emails+"','"+context.user_id+"','"+pass4+"','','"+text+"',1,0,'0')");
+          } 
  res.render('registration', context);
 });
 
-
- 
-
-
-    }
+}
 
 
 

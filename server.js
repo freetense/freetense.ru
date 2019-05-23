@@ -111,6 +111,13 @@ app.all('/login', urlencodedParser, index_login.index_login1);
  var index_registration = require('./site_mod/registration');
 app.all('/registration', urlencodedParser, index_registration.index_login12);
 
+ var index_exit = require('./site_mod/exit');
+app.all('/exit', urlencodedParser, index_exit.index_exit);
+
+
+var index_settings = require('./site_mod/settings');
+app.all('/settings', urlencodedParser, index_settings.index_settings);
+
 
 io.on('connection', sock.socke);
 io.on('connection', sock.socke_count);
